@@ -92,6 +92,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.insert(employee);
 
     }
+
      /**
      * 员工分页查询
      * @param employeePageQueryDTO
@@ -108,4 +109,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(total, record);
     }
 
+     /**
+      * 启用禁用员工账号
+      * @param status
+      * @param id
+      */
+    @Override
+    public void enableOrDisable(Integer status, Long id) {
+        Employee employee = Employee.builder()
+                .id(id)
+                .status(status)
+                .updateTime(LocalDateTime.now())
+                .updateUser(BaseContext.getCurrentId())
+                .build();
+        employeeMapper.update(employee);
+    }
 }
